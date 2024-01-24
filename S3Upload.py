@@ -32,5 +32,17 @@ class S3Upload:
 
     def suppress_all_download(self):
         response = self.s3.list_objects_v2(Bucket=self.bucket_name)
-        for obj in response['Contents']:
-            self.s3.delete_object(Bucket=self.bucket_name, Key=obj['Key'])
+        if response['KeyCount'] == 0:
+            return True
+        files_in_folder = response["Contents"]
+        files_to_delete = []
+        # We will create Key array to pass to delete_objects function
+        for f in files_in_folder:
+            files_to_delete.append({"Key": f["Key"]})
+        if len(files_to_delete) == 0:
+            return True
+
+        response = self.s3.delete_objects(
+            Bucket=self.bucket_name, Delete={"Objects": files_to_delete}
+        )
+

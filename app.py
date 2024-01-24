@@ -91,6 +91,7 @@ def display_html(identifier):
 def delete():
     if request.method == 'POST':
         suppress_action()
+        return render_template('upload.html')
 
 
 if __name__ == '__main__':

@@ -31,4 +31,4 @@ class CoolConfig:
 
     def delete_element(self):
         collection, db = self.connect_mongo()
-        result = collection.delete_many({})
+        collection.delete_many({})

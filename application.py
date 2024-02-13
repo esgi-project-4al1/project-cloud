@@ -46,7 +46,7 @@ def allowed_file(filename):
         filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
-@app.route('/', methods=['GET', 'POST'])
+@application.route('/', methods=['GET', 'POST'])
 def upload_file():
     if request.method == 'POST':
         if 'file' not in request.files:
@@ -79,7 +79,7 @@ def upload_file():
     return render_template('upload.html')
 
 
-@app.route('/display/<string:identifier>/', methods=['GET'])
+@application.route('/display/<string:identifier>/', methods=['GET'])
 def display_html(identifier):
     if request.method == 'GET':
         object_id = identifier
@@ -87,7 +87,7 @@ def display_html(identifier):
         return render_template('display.html', file=result)
 
 
-@app.route('/delete', methods=['POST'])
+@application.route('/delete', methods=['POST'])
 def delete():
     if request.method == 'POST':
         suppress_action()
